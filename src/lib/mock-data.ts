@@ -1,0 +1,32 @@
+export const COURSES = [
+    {
+        id: "lecture-1",
+        title: "독서논술지도사 1급 과정",
+        description: "아동 발달 심리부터 실전 독서 토론 지도까지 마스터하는 전문가 과정입니다.",
+        instructor: "김철수 교수",
+        duration: "40강 (20시간)",
+        thumbnail: "https://placehold.co/600x400/2563eb/white?text=Exam+1",
+        progress: 0,
+        price: 300000,
+    },
+    {
+        id: "lecture-2",
+        title: "독서토론논술전문가 심화 과정",
+        description: "입시 논술 및 심층 토론 지도를 위한 고난이도 커리큘럼입니다.",
+        instructor: "이영희 박사",
+        duration: "25강 (15시간)",
+        thumbnail: "https://placehold.co/600x400/4f46e5/white?text=Exam+2",
+        progress: 0,
+        price: 450000,
+    },
+    {
+        id: "lecture-3",
+        title: "초등 글쓰기 지도법 특강",
+        description: "아이들의 글쓰기 실력을 쑥쑥 키워주는 실전 첨삭 노하우를 공개합니다.",
+        instructor: "박민수 강사",
+        duration: "10강 (5시간)",
+        thumbnail: "https://placehold.co/600x400/0891b2/white?text=Writing",
+        progress: 0,
+        price: 150000,
+    },
+];
