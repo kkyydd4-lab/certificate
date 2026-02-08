@@ -1,0 +1,38 @@
+[
+  {
+    "href": "/dashboard",
+    "label": "대시보드",
+    "icon": "LayoutDashboard",
+    "roles": ["admin", "instructor", "student"]
+  },
+  {
+    "href": "/exams",
+    "label": "시험 응시",
+    "icon": "PenTool",
+    "roles": ["student", "instructor", "admin"]
+  },
+  {
+    "href": "/my-certifications",
+    "label": "내 자격증",
+    "icon": "Award",
+    "roles": ["student", "instructor", "admin"]
+  },
+  {
+    "href": "/admin/questions",
+    "label": "문제 은행",
+    "icon": "FileText",
+    "roles": ["admin", "instructor"]
+  },
+  {
+    "href": "/admin/exams",
+    "label": "시험 관리",
+    "icon": "Settings",
+    "roles": ["admin", "instructor"]
+  },
+  {
+    "href": "/admin/users",
+    "label": "회원 관리",
+    "icon": "Users",
+    "roles": ["admin"]
+  }
+]

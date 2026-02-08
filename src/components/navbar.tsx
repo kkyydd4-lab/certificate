@@ -7,9 +7,14 @@ export function Navbar() {
     return (
         <nav className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2 font-bold text-xl text-slate-800">
-                    <BookOpen className="w-6 h-6 text-blue-600" />
-                    <span>한국독서논술협회</span>
+                <Link href="/" className="flex items-center gap-3">
+                    <div className="bg-blue-900 text-white p-1.5 rounded-lg">
+                        <BookOpen className="w-5 h-5" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="font-bold text-lg text-slate-900 leading-none">KAEA</span>
+                        <span className="text-[10px] text-blue-800 font-bold tracking-tight">한국독서논술협회</span>
+                    </div>
                 </Link>
 
                 <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">

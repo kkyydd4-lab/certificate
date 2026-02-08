@@ -54,7 +54,47 @@ export async function middleware(request: NextRequest) {
         }
     )
 
-    await supabase.auth.getUser()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    // Protected routes configuration
+    const protectedRoutes = ['/dashboard', '/admin', '/instructor']
+    const authRoutes = ['/login', '/register']
+    const isProtectedRoute = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route))
+    const isAuthRoute = authRoutes.some(route => request.nextUrl.pathname.startsWith(route))
+
+    // Redirect to login if accessing protected route without user
+    if (isProtectedRoute && !user) {
+        return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    // Redirect to dashboard if accessing auth route with user
+    if (isAuthRoute && user) {
+        return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+
+    // Role-based access control
+    if (user && isProtectedRoute) {
+        // Fetch user profile to get role
+        // Note: In a high-traffic app, you might want to cache this or use custom claims
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .single()
+
+        const userRole = profile?.role || 'student'
+        const path = request.nextUrl.pathname
+
+        // Admin only routes
+        if (path.startsWith('/admin') && userRole !== 'admin') {
+            return NextResponse.redirect(new URL('/dashboard', request.url))
+        }
+
+        // Instructor routes (accessible by admin and instructor)
+        if (path.startsWith('/instructor') && !['admin', 'instructor'].includes(userRole)) {
+            return NextResponse.redirect(new URL('/dashboard', request.url))
+        }
+    }
 
     return response
 }

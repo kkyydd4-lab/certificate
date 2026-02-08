@@ -1,9 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Mail, Lock } from "lucide-react";
+import { ArrowLeft, Mail, Lock, Loader2 } from "lucide-react";
+import { useActionState } from "react";
+import { login } from "../actions";
+
+const initialState = {
+    error: "",
+};
 
 export default function LoginPage() {
+    const [state, formAction, isPending] = useActionState(login, initialState);
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 p-4">
             <Link
@@ -20,7 +28,7 @@ export default function LoginPage() {
                     <p className="text-slate-500 mt-2">한국독서논술협회에 오신 것을 환영합니다.</p>
                 </div>
 
-                <form className="space-y-4">
+                <form action={formAction} className="space-y-4">
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-slate-700">이메일</label>
                         <div className="relative">
@@ -28,7 +36,9 @@ export default function LoginPage() {
                             <input
                                 type="email"
                                 placeholder="example@email.com"
-                                className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                                className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-slate-800"
+                                name="email"
+                                required
                             />
                         </div>
                     </div>
@@ -40,16 +50,26 @@ export default function LoginPage() {
                             <input
                                 type="password"
                                 placeholder="••••••••"
-                                className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                                className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-slate-800"
+                                name="password"
+                                required
                             />
                         </div>
                     </div>
 
+                    {state?.error && (
+                        <div className="text-red-500 text-sm text-center p-2 bg-red-50 rounded-lg">
+                            {state.error}
+                        </div>
+                    )}
+
                     <button
                         type="submit"
-                        className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md hover:shadow-lg"
+                        disabled={isPending}
+                        className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
-                        로그인하기
+                        {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+                        {isPending ? "로그인 중..." : "로그인하기"}
                     </button>
                 </form>
 
